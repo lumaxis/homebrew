@@ -6,8 +6,8 @@ require 'formula'
 # dependency for e.g. continuous integration environments.
 class Appledoc22 < Formula
   homepage 'http://appledoc.gentlebytes.com/'
-  url "https://github.com/tomaz/appledoc/archive/v2.2.tar.gz"
-  sha1 '4ad475ee6bdc2e34d6053c4e384aad1781349f5e'
+  url "https://github.com/tomaz/appledoc/releases/download/2.2.1/appledoc-2.2.1.zip"
+  sha1 'b7a5b2e4a6c1949b532518bda9df8e3c06f0a1d7'
 
   keg_only %{
 This formula is keg-only to avoid conflicts with the core Appledoc formula.
@@ -27,16 +27,8 @@ or (if it is the only version installed) linked after it is installed.
   fails_with :clang
 
   def install
-    xcodebuild "-project", "appledoc.xcodeproj",
-               "-target", "appledoc",
-               "-configuration", "Release",
-               "clean", "install",
-               "SYMROOT=build",
-               "DSTROOT=build",
-               "INSTALL_PATH=/bin",
-               "OTHER_CFLAGS='-DCOMPILE_TIME_DEFAULT_TEMPLATE_PATH=@\"#{prefix}/Templates\"'"
-    bin.install "build/bin/appledoc"
-    prefix.install "Templates/"
+    bin.install "appledoc/appledoc"
+    prefix.install "appledoc/Templates/"
   end
 
   test do
